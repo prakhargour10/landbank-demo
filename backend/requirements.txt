@@ -1,0 +1,12 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+psycopg[binary]>=3.2
+psycopg-pool>=3.2
+pydantic>=2.7
+python-multipart>=0.0.9
+httpx>=0.27
+reportlab>=4.0
+# Pin mcp <2.0: fastapi-mcp 0.4.0 calls Server(name, description) positionally,
+# which mcp>=2.0 broke by making those args keyword-only.
+mcp>=1.8.1,<2.0
+fastapi-mcp>=0.3

@@ -1,0 +1,146 @@
+{
+  "manifest_version": "1.0",
+  "connector": "landbank_msme_demo_data",
+  "agent": "Portfolio Intelligence Agent",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key",
+    "value_ref": "secret://landbank/lbk_agent_portfolio"
+  },
+  "tools": [
+    {
+      "name": "listCustomers",
+      "method": "GET",
+      "path": "/api/v1/customers",
+      "permission": "read",
+      "description": "List MSMEs; filter by health status, region, sector, RM or name."
+    },
+    {
+      "name": "getCustomer",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}",
+      "permission": "read",
+      "description": "Profile, KYC status, vintage, RM."
+    },
+    {
+      "name": "getCustomer360",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/360",
+      "permission": "read",
+      "description": "Everything about a customer in one call (loans, health, signals, open work)."
+    },
+    {
+      "name": "getTransactions",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/transactions",
+      "permission": "read",
+      "description": "Categorised bank transactions (12 months)."
+    },
+    {
+      "name": "getMonthlyCashflow",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/cashflow",
+      "permission": "read",
+      "description": "Monthly inflow / outflow / receipts / repayments summary."
+    },
+    {
+      "name": "getTaxFilings",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/tax-filings",
+      "permission": "read",
+      "description": "BIR quarterly VAT (2550Q) / percentage tax (2551Q) and annual ITR (1701/1702)."
+    },
+    {
+      "name": "getLoans",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/loans",
+      "permission": "read",
+      "description": "Loans with repayment schedule and utilisation."
+    },
+    {
+      "name": "getPortfolioSummary",
+      "method": "GET",
+      "path": "/api/v1/portfolio/summary",
+      "permission": "read",
+      "description": "Exposure, health mix, regions, sectors, queues."
+    },
+    {
+      "name": "runPortfolioMonitoring",
+      "method": "POST",
+      "path": "/api/v1/portfolio/monitoring-run",
+      "permission": "write",
+      "description": "Recalculate signals for every active borrower; returns who needs attention (daily workflow)."
+    },
+    {
+      "name": "getEarlyWarningSignals",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/signals",
+      "permission": "read",
+      "description": "Current metrics and fired signals for one customer (nothing stored)."
+    },
+    {
+      "name": "calculateEarlyWarningSignals",
+      "method": "POST",
+      "path": "/api/v1/customers/{customer_id}/signals",
+      "permission": "write",
+      "description": "Recalculate, store a snapshot and update health status (emits HEALTH_STATUS_CHANGED)."
+    },
+    {
+      "name": "createRiskAlert",
+      "method": "POST",
+      "path": "/api/v1/alerts",
+      "permission": "write",
+      "description": "Raise an early-warning alert with evidence and a recommended human action."
+    },
+    {
+      "name": "listRiskAlerts",
+      "method": "GET",
+      "path": "/api/v1/alerts",
+      "permission": "read",
+      "description": "List alerts."
+    },
+    {
+      "name": "getRiskAlert",
+      "method": "GET",
+      "path": "/api/v1/alerts/{alert_id}",
+      "permission": "read",
+      "description": "One alert."
+    },
+    {
+      "name": "createRMTask",
+      "method": "POST",
+      "path": "/api/v1/rm-tasks",
+      "permission": "write",
+      "description": "Create a task for the customer's RM (risk outreach, document follow-up, growth)."
+    },
+    {
+      "name": "getReferenceData",
+      "method": "GET",
+      "path": "/api/v1/reference/{kind}",
+      "permission": "read",
+      "description": "Products, early-warning rules, document checklist, RMs, event types."
+    }
+  ],
+  "denied_tools": [
+    "activateLoan",
+    "applyDemoStress",
+    "createWebhookSubscription",
+    "declineConsent",
+    "deleteWebhookSubscription",
+    "getAuditTrail",
+    "grantConsent",
+    "listWebhookSubscriptions",
+    "openCreditCase",
+    "recordHumanDecision",
+    "resetDemoData",
+    "submitApplication",
+    "updateRMLead",
+    "updateRMTask",
+    "updateRiskAlert",
+    "uploadDocument"
+  ],
+  "human_approval_required_for": [
+    "recordHumanDecision",
+    "activateLoan"
+  ]
+}

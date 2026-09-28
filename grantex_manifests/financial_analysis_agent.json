@@ -1,0 +1,125 @@
+{
+  "manifest_version": "1.0",
+  "connector": "landbank_msme_demo_data",
+  "agent": "Financial Analysis Agent",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key",
+    "value_ref": "secret://landbank/lbk_agent_financial"
+  },
+  "tools": [
+    {
+      "name": "getCustomer",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}",
+      "permission": "read",
+      "description": "Profile, KYC status, vintage, RM."
+    },
+    {
+      "name": "getAccounts",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/accounts",
+      "permission": "read",
+      "description": "Deposit accounts and balances."
+    },
+    {
+      "name": "getTransactions",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/transactions",
+      "permission": "read",
+      "description": "Categorised bank transactions (12 months)."
+    },
+    {
+      "name": "getMonthlyCashflow",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/cashflow",
+      "permission": "read",
+      "description": "Monthly inflow / outflow / receipts / repayments summary."
+    },
+    {
+      "name": "getTaxFilings",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/tax-filings",
+      "permission": "read",
+      "description": "BIR quarterly VAT (2550Q) / percentage tax (2551Q) and annual ITR (1701/1702)."
+    },
+    {
+      "name": "getCreditReport",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/credit-report",
+      "permission": "read",
+      "description": "CIC-style credit report (score, facilities, max DPD)."
+    },
+    {
+      "name": "getLoans",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/loans",
+      "permission": "read",
+      "description": "Loans with repayment schedule and utilisation."
+    },
+    {
+      "name": "getApplication",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}",
+      "permission": "read",
+      "description": "Application with consent, documents and timeline."
+    },
+    {
+      "name": "getDocument",
+      "method": "GET",
+      "path": "/api/v1/documents/{document_id}",
+      "permission": "read",
+      "description": "Document metadata, issues and extracted values."
+    },
+    {
+      "name": "downloadDocument",
+      "method": "GET",
+      "path": "/api/v1/documents/{document_id}/file",
+      "permission": "read",
+      "description": "Document as PDF (for OCR / reading)."
+    },
+    {
+      "name": "runFinancialAnalysis",
+      "method": "POST",
+      "path": "/api/v1/applications/{application_id}/financial-analysis",
+      "permission": "write",
+      "description": "Compute revenue, surplus, DSCR (current and with new loan), cash-gap pattern, product fit."
+    },
+    {
+      "name": "getFinancialAnalysis",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}/financial-analysis",
+      "permission": "read",
+      "description": "Latest stored financial analysis."
+    },
+    {
+      "name": "getReferenceData",
+      "method": "GET",
+      "path": "/api/v1/reference/{kind}",
+      "permission": "read",
+      "description": "Products, early-warning rules, document checklist, RMs, event types."
+    }
+  ],
+  "denied_tools": [
+    "activateLoan",
+    "applyDemoStress",
+    "createWebhookSubscription",
+    "declineConsent",
+    "deleteWebhookSubscription",
+    "getAuditTrail",
+    "grantConsent",
+    "listWebhookSubscriptions",
+    "openCreditCase",
+    "recordHumanDecision",
+    "resetDemoData",
+    "submitApplication",
+    "updateRMLead",
+    "updateRMTask",
+    "updateRiskAlert",
+    "uploadDocument"
+  ],
+  "human_approval_required_for": [
+    "recordHumanDecision",
+    "activateLoan"
+  ]
+}

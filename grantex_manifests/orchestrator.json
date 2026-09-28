@@ -1,0 +1,132 @@
+{
+  "manifest_version": "1.0",
+  "connector": "landbank_msme_demo_data",
+  "agent": "Orchestrator",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key",
+    "value_ref": "secret://landbank/lbk_agent_orchestrator"
+  },
+  "tools": [
+    {
+      "name": "listCustomers",
+      "method": "GET",
+      "path": "/api/v1/customers",
+      "permission": "read",
+      "description": "List MSMEs; filter by health status, region, sector, RM or name."
+    },
+    {
+      "name": "getCustomer",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}",
+      "permission": "read",
+      "description": "Profile, KYC status, vintage, RM."
+    },
+    {
+      "name": "getCustomer360",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/360",
+      "permission": "read",
+      "description": "Everything about a customer in one call (loans, health, signals, open work)."
+    },
+    {
+      "name": "listApplications",
+      "method": "GET",
+      "path": "/api/v1/applications",
+      "permission": "read",
+      "description": "List applications by status or customer."
+    },
+    {
+      "name": "getCreditCase",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}/credit-case",
+      "permission": "read",
+      "description": "Latest credit case."
+    },
+    {
+      "name": "getPortfolioSummary",
+      "method": "GET",
+      "path": "/api/v1/portfolio/summary",
+      "permission": "read",
+      "description": "Exposure, health mix, regions, sectors, queues."
+    },
+    {
+      "name": "getEarlyWarningSignals",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/signals",
+      "permission": "read",
+      "description": "Current metrics and fired signals for one customer (nothing stored)."
+    },
+    {
+      "name": "listRiskAlerts",
+      "method": "GET",
+      "path": "/api/v1/alerts",
+      "permission": "read",
+      "description": "List alerts."
+    },
+    {
+      "name": "listOpportunities",
+      "method": "GET",
+      "path": "/api/v1/opportunities",
+      "permission": "write",
+      "description": "Best opportunity per customer across the book (stores opportunities)."
+    },
+    {
+      "name": "listRMLeads",
+      "method": "GET",
+      "path": "/api/v1/leads",
+      "permission": "read",
+      "description": "List leads."
+    },
+    {
+      "name": "listRMTasks",
+      "method": "GET",
+      "path": "/api/v1/rm-tasks",
+      "permission": "read",
+      "description": "List RM tasks."
+    },
+    {
+      "name": "getRMWorkQueue",
+      "method": "GET",
+      "path": "/api/v1/rm/work-queue",
+      "permission": "read",
+      "description": "Open tasks and leads for an RM."
+    },
+    {
+      "name": "getReferenceData",
+      "method": "GET",
+      "path": "/api/v1/reference/{kind}",
+      "permission": "read",
+      "description": "Products, early-warning rules, document checklist, RMs, event types."
+    },
+    {
+      "name": "listEvents",
+      "method": "GET",
+      "path": "/api/v1/events",
+      "permission": "read",
+      "description": "Event log; poll with since_id if webhooks are not used."
+    }
+  ],
+  "denied_tools": [
+    "activateLoan",
+    "applyDemoStress",
+    "createWebhookSubscription",
+    "declineConsent",
+    "deleteWebhookSubscription",
+    "getAuditTrail",
+    "grantConsent",
+    "listWebhookSubscriptions",
+    "openCreditCase",
+    "recordHumanDecision",
+    "resetDemoData",
+    "submitApplication",
+    "updateRMLead",
+    "updateRMTask",
+    "updateRiskAlert",
+    "uploadDocument"
+  ],
+  "human_approval_required_for": [
+    "recordHumanDecision",
+    "activateLoan"
+  ]
+}

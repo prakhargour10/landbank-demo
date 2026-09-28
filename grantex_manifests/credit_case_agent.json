@@ -1,0 +1,111 @@
+{
+  "manifest_version": "1.0",
+  "connector": "landbank_msme_demo_data",
+  "agent": "Credit Case Agent",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key",
+    "value_ref": "secret://landbank/lbk_agent_creditcase"
+  },
+  "tools": [
+    {
+      "name": "getCustomer",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}",
+      "permission": "read",
+      "description": "Profile, KYC status, vintage, RM."
+    },
+    {
+      "name": "getCreditReport",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/credit-report",
+      "permission": "read",
+      "description": "CIC-style credit report (score, facilities, max DPD)."
+    },
+    {
+      "name": "listApplications",
+      "method": "GET",
+      "path": "/api/v1/applications",
+      "permission": "read",
+      "description": "List applications by status or customer."
+    },
+    {
+      "name": "getApplication",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}",
+      "permission": "read",
+      "description": "Application with consent, documents and timeline."
+    },
+    {
+      "name": "listDocuments",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}/documents",
+      "permission": "read",
+      "description": "Document checklist with status and issues."
+    },
+    {
+      "name": "getDocument",
+      "method": "GET",
+      "path": "/api/v1/documents/{document_id}",
+      "permission": "read",
+      "description": "Document metadata, issues and extracted values."
+    },
+    {
+      "name": "downloadDocument",
+      "method": "GET",
+      "path": "/api/v1/documents/{document_id}/file",
+      "permission": "read",
+      "description": "Document as PDF (for OCR / reading)."
+    },
+    {
+      "name": "getFinancialAnalysis",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}/financial-analysis",
+      "permission": "read",
+      "description": "Latest stored financial analysis."
+    },
+    {
+      "name": "prepareCreditCase",
+      "method": "POST",
+      "path": "/api/v1/applications/{application_id}/credit-case",
+      "permission": "write",
+      "description": "Store readiness score, factor scores, evidence, strengths, risks, review questions and the agent's memo."
+    },
+    {
+      "name": "getCreditCase",
+      "method": "GET",
+      "path": "/api/v1/applications/{application_id}/credit-case",
+      "permission": "read",
+      "description": "Latest credit case."
+    },
+    {
+      "name": "getReferenceData",
+      "method": "GET",
+      "path": "/api/v1/reference/{kind}",
+      "permission": "read",
+      "description": "Products, early-warning rules, document checklist, RMs, event types."
+    }
+  ],
+  "denied_tools": [
+    "activateLoan",
+    "applyDemoStress",
+    "createWebhookSubscription",
+    "declineConsent",
+    "deleteWebhookSubscription",
+    "getAuditTrail",
+    "grantConsent",
+    "listWebhookSubscriptions",
+    "openCreditCase",
+    "recordHumanDecision",
+    "resetDemoData",
+    "submitApplication",
+    "updateRMLead",
+    "updateRMTask",
+    "updateRiskAlert",
+    "uploadDocument"
+  ],
+  "human_approval_required_for": [
+    "recordHumanDecision",
+    "activateLoan"
+  ]
+}

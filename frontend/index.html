@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LANDBANK MSME Lending · Agent Data Console</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="wordmark">LANDBANK</div>
+      <div class="brand-sub">MSME Lending · AI Agent Data Console</div>
+    </div>
+    <div class="topbar-right">
+      <span class="pill pill-gold" id="asof">Synthetic data</span>
+      <label class="role-select">Acting as
+        <select id="role"></select>
+      </label>
+    </div>
+  </header>
+  <div class="goldline"></div>
+
+  <div class="layout">
+    <nav class="sidebar" id="nav">
+      <a href="#/dashboard" data-view="dashboard"><span class="ico">◧</span>Portfolio dashboard</a>
+      <a href="#/customers" data-view="customers"><span class="ico">☷</span>Customers</a>
+      <a href="#/applications" data-view="applications"><span class="ico">✎</span>Applications</a>
+      <a href="#/risk" data-view="risk"><span class="ico">⚠</span>Risk &amp; early warning</a>
+      <a href="#/rm" data-view="rm"><span class="ico">☏</span>RM work queue</a>
+      <a href="#/opportunities" data-view="opportunities"><span class="ico">↗</span>Growth opportunities</a>
+      <a href="#/events" data-view="events"><span class="ico">≡</span>Events &amp; audit</a>
+      <a href="#/apis" data-view="apis"><span class="ico">⚙</span>APIs for AgenticOrg</a>
+      <div class="nav-foot">
+        <div class="rule">AI prepares. People decide.</div>
+        <div class="muted small">Demo environment · Powered by Pine Labs</div>
+      </div>
+    </nav>
+    <main id="main" class="main"><div class="loading">Loading…</div></main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div id="modal" class="modal hidden"><div class="modal-card" id="modal-card"></div></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

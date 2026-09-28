@@ -1,0 +1,826 @@
+[
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getCustomer360",
+  "permission": "READ",
+  "purpose": "Everything about a customer in one call (loans, health, signals, open work).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/360"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getAccounts",
+  "permission": "READ",
+  "purpose": "Deposit accounts and balances.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/accounts"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getProductHoldings",
+  "permission": "READ",
+  "purpose": "Products the customer already holds.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/products"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "checkEligibility",
+  "permission": "READ",
+  "purpose": "Indicative eligibility and max amount from data the bank already holds (not an approval).",
+  "method": "POST",
+  "path": "/api/v1/customers/{customer_id}/eligibility-check"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "requestConsent",
+  "permission": "WRITE",
+  "purpose": "Ask the MSME for read-only, time-bound data consent.",
+  "method": "POST",
+  "path": "/api/v1/consents"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getConsent",
+  "permission": "READ",
+  "purpose": "Check whether consent was granted.",
+  "method": "GET",
+  "path": "/api/v1/consents/{consent_id}"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "createApplication",
+  "permission": "WRITE",
+  "purpose": "Start a loan application (amount in full pesos).",
+  "method": "POST",
+  "path": "/api/v1/applications"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "listApplications",
+  "permission": "READ",
+  "purpose": "List applications by status or customer.",
+  "method": "GET",
+  "path": "/api/v1/applications"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getApplication",
+  "permission": "READ",
+  "purpose": "Application with consent, documents and timeline.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "listDocuments",
+  "permission": "READ",
+  "purpose": "Document checklist with status and issues.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/documents"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "fetchDocuments",
+  "permission": "WRITE",
+  "purpose": "Pull bank statements, VAT returns, credit report and registration via consent.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/documents/fetch"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "validateDocuments",
+  "permission": "WRITE",
+  "purpose": "Validate documents; find missing pages; cross-check declared sales vs bank receipts.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/documents/validate"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "requestDocument",
+  "permission": "WRITE",
+  "purpose": "Ask the MSME for a missing or corrected document.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/documents/request"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getDocument",
+  "permission": "READ",
+  "purpose": "Document metadata, issues and extracted values.",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "downloadDocument",
+  "permission": "READ",
+  "purpose": "Document as PDF (for OCR / reading).",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}/file"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "createRMTask",
+  "permission": "WRITE",
+  "purpose": "Create a task for the customer's RM (risk outreach, document follow-up, growth).",
+  "method": "POST",
+  "path": "/api/v1/rm-tasks"
+ },
+ {
+  "agent": "MSME Application Agent",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getAccounts",
+  "permission": "READ",
+  "purpose": "Deposit accounts and balances.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/accounts"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getTransactions",
+  "permission": "READ",
+  "purpose": "Categorised bank transactions (12 months).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/transactions"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getMonthlyCashflow",
+  "permission": "READ",
+  "purpose": "Monthly inflow / outflow / receipts / repayments summary.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/cashflow"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getTaxFilings",
+  "permission": "READ",
+  "purpose": "BIR quarterly VAT (2550Q) / percentage tax (2551Q) and annual ITR (1701/1702).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/tax-filings"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getCreditReport",
+  "permission": "READ",
+  "purpose": "CIC-style credit report (score, facilities, max DPD).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/credit-report"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getLoans",
+  "permission": "READ",
+  "purpose": "Loans with repayment schedule and utilisation.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/loans"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getApplication",
+  "permission": "READ",
+  "purpose": "Application with consent, documents and timeline.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getDocument",
+  "permission": "READ",
+  "purpose": "Document metadata, issues and extracted values.",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "downloadDocument",
+  "permission": "READ",
+  "purpose": "Document as PDF (for OCR / reading).",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}/file"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "runFinancialAnalysis",
+  "permission": "WRITE",
+  "purpose": "Compute revenue, surplus, DSCR (current and with new loan), cash-gap pattern, product fit.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/financial-analysis"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getFinancialAnalysis",
+  "permission": "READ",
+  "purpose": "Latest stored financial analysis.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/financial-analysis"
+ },
+ {
+  "agent": "Financial Analysis Agent",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getCreditReport",
+  "permission": "READ",
+  "purpose": "CIC-style credit report (score, facilities, max DPD).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/credit-report"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "listApplications",
+  "permission": "READ",
+  "purpose": "List applications by status or customer.",
+  "method": "GET",
+  "path": "/api/v1/applications"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getApplication",
+  "permission": "READ",
+  "purpose": "Application with consent, documents and timeline.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "listDocuments",
+  "permission": "READ",
+  "purpose": "Document checklist with status and issues.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/documents"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getDocument",
+  "permission": "READ",
+  "purpose": "Document metadata, issues and extracted values.",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "downloadDocument",
+  "permission": "READ",
+  "purpose": "Document as PDF (for OCR / reading).",
+  "method": "GET",
+  "path": "/api/v1/documents/{document_id}/file"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getFinancialAnalysis",
+  "permission": "READ",
+  "purpose": "Latest stored financial analysis.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/financial-analysis"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "prepareCreditCase",
+  "permission": "WRITE",
+  "purpose": "Store readiness score, factor scores, evidence, strengths, risks, review questions and the agent's memo.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/credit-case"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getCreditCase",
+  "permission": "READ",
+  "purpose": "Latest credit case.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/credit-case"
+ },
+ {
+  "agent": "Credit Case Agent",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "listCustomers",
+  "permission": "READ",
+  "purpose": "List MSMEs; filter by health status, region, sector, RM or name.",
+  "method": "GET",
+  "path": "/api/v1/customers"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getCustomer360",
+  "permission": "READ",
+  "purpose": "Everything about a customer in one call (loans, health, signals, open work).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/360"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getTransactions",
+  "permission": "READ",
+  "purpose": "Categorised bank transactions (12 months).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/transactions"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getMonthlyCashflow",
+  "permission": "READ",
+  "purpose": "Monthly inflow / outflow / receipts / repayments summary.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/cashflow"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getTaxFilings",
+  "permission": "READ",
+  "purpose": "BIR quarterly VAT (2550Q) / percentage tax (2551Q) and annual ITR (1701/1702).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/tax-filings"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getLoans",
+  "permission": "READ",
+  "purpose": "Loans with repayment schedule and utilisation.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/loans"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getPortfolioSummary",
+  "permission": "READ",
+  "purpose": "Exposure, health mix, regions, sectors, queues.",
+  "method": "GET",
+  "path": "/api/v1/portfolio/summary"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "runPortfolioMonitoring",
+  "permission": "WRITE",
+  "purpose": "Recalculate signals for every active borrower; returns who needs attention (daily workflow).",
+  "method": "POST",
+  "path": "/api/v1/portfolio/monitoring-run"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getEarlyWarningSignals",
+  "permission": "READ",
+  "purpose": "Current metrics and fired signals for one customer (nothing stored).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/signals"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "calculateEarlyWarningSignals",
+  "permission": "WRITE",
+  "purpose": "Recalculate, store a snapshot and update health status (emits HEALTH_STATUS_CHANGED).",
+  "method": "POST",
+  "path": "/api/v1/customers/{customer_id}/signals"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "createRiskAlert",
+  "permission": "WRITE",
+  "purpose": "Raise an early-warning alert with evidence and a recommended human action.",
+  "method": "POST",
+  "path": "/api/v1/alerts"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "listRiskAlerts",
+  "permission": "READ",
+  "purpose": "List alerts.",
+  "method": "GET",
+  "path": "/api/v1/alerts"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getRiskAlert",
+  "permission": "READ",
+  "purpose": "One alert.",
+  "method": "GET",
+  "path": "/api/v1/alerts/{alert_id}"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "createRMTask",
+  "permission": "WRITE",
+  "purpose": "Create a task for the customer's RM (risk outreach, document follow-up, growth).",
+  "method": "POST",
+  "path": "/api/v1/rm-tasks"
+ },
+ {
+  "agent": "Portfolio Intelligence Agent",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getCustomer360",
+  "permission": "READ",
+  "purpose": "Everything about a customer in one call (loans, health, signals, open work).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/360"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getProductHoldings",
+  "permission": "READ",
+  "purpose": "Products the customer already holds.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/products"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getEarlyWarningSignals",
+  "permission": "READ",
+  "purpose": "Current metrics and fired signals for one customer (nothing stored).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/signals"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "listRiskAlerts",
+  "permission": "READ",
+  "purpose": "List alerts.",
+  "method": "GET",
+  "path": "/api/v1/alerts"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getRiskAlert",
+  "permission": "READ",
+  "purpose": "One alert.",
+  "method": "GET",
+  "path": "/api/v1/alerts/{alert_id}"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getProductOpportunities",
+  "permission": "WRITE",
+  "purpose": "Next-best products for one healthy customer, with reasons (stores the opportunity).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/opportunities"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "listOpportunities",
+  "permission": "WRITE",
+  "purpose": "Best opportunity per customer across the book (stores opportunities).",
+  "method": "GET",
+  "path": "/api/v1/opportunities"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "createRMLead",
+  "permission": "WRITE",
+  "purpose": "Create a lead in the RM work queue (blocked for credit offers to HIGH_ATTENTION customers).",
+  "method": "POST",
+  "path": "/api/v1/leads"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "listRMLeads",
+  "permission": "READ",
+  "purpose": "List leads.",
+  "method": "GET",
+  "path": "/api/v1/leads"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "createRMTask",
+  "permission": "WRITE",
+  "purpose": "Create a task for the customer's RM (risk outreach, document follow-up, growth).",
+  "method": "POST",
+  "path": "/api/v1/rm-tasks"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "listRMTasks",
+  "permission": "READ",
+  "purpose": "List RM tasks.",
+  "method": "GET",
+  "path": "/api/v1/rm-tasks"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getRMWorkQueue",
+  "permission": "READ",
+  "purpose": "Open tasks and leads for an RM.",
+  "method": "GET",
+  "path": "/api/v1/rm/work-queue"
+ },
+ {
+  "agent": "RM & Growth Agent",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listCustomers",
+  "permission": "READ",
+  "purpose": "List MSMEs; filter by health status, region, sector, RM or name.",
+  "method": "GET",
+  "path": "/api/v1/customers"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getCustomer",
+  "permission": "READ",
+  "purpose": "Profile, KYC status, vintage, RM.",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getCustomer360",
+  "permission": "READ",
+  "purpose": "Everything about a customer in one call (loans, health, signals, open work).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/360"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listApplications",
+  "permission": "READ",
+  "purpose": "List applications by status or customer.",
+  "method": "GET",
+  "path": "/api/v1/applications"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getCreditCase",
+  "permission": "READ",
+  "purpose": "Latest credit case.",
+  "method": "GET",
+  "path": "/api/v1/applications/{application_id}/credit-case"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getPortfolioSummary",
+  "permission": "READ",
+  "purpose": "Exposure, health mix, regions, sectors, queues.",
+  "method": "GET",
+  "path": "/api/v1/portfolio/summary"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getEarlyWarningSignals",
+  "permission": "READ",
+  "purpose": "Current metrics and fired signals for one customer (nothing stored).",
+  "method": "GET",
+  "path": "/api/v1/customers/{customer_id}/signals"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listRiskAlerts",
+  "permission": "READ",
+  "purpose": "List alerts.",
+  "method": "GET",
+  "path": "/api/v1/alerts"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listOpportunities",
+  "permission": "WRITE",
+  "purpose": "Best opportunity per customer across the book (stores opportunities).",
+  "method": "GET",
+  "path": "/api/v1/opportunities"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listRMLeads",
+  "permission": "READ",
+  "purpose": "List leads.",
+  "method": "GET",
+  "path": "/api/v1/leads"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listRMTasks",
+  "permission": "READ",
+  "purpose": "List RM tasks.",
+  "method": "GET",
+  "path": "/api/v1/rm-tasks"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getRMWorkQueue",
+  "permission": "READ",
+  "purpose": "Open tasks and leads for an RM.",
+  "method": "GET",
+  "path": "/api/v1/rm/work-queue"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "getReferenceData",
+  "permission": "READ",
+  "purpose": "Products, early-warning rules, document checklist, RMs, event types.",
+  "method": "GET",
+  "path": "/api/v1/reference/{kind}"
+ },
+ {
+  "agent": "Orchestrator",
+  "tool": "listEvents",
+  "permission": "READ",
+  "purpose": "Event log; poll with since_id if webhooks are not used.",
+  "method": "GET",
+  "path": "/api/v1/events"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "grantConsent",
+  "permission": "HUMAN ONLY",
+  "purpose": "MSME grants consent.",
+  "method": "POST",
+  "path": "/api/v1/consents/{consent_id}/grant"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "declineConsent",
+  "permission": "HUMAN ONLY",
+  "purpose": "MSME declines consent.",
+  "method": "POST",
+  "path": "/api/v1/consents/{consent_id}/decline"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "uploadDocument",
+  "permission": "HUMAN ONLY",
+  "purpose": "MSME uploads a document (multipart).",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/documents/upload"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "submitApplication",
+  "permission": "HUMAN ONLY",
+  "purpose": "MSME (or RM on their behalf) submits to a credit officer.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/submit"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "openCreditCase",
+  "permission": "HUMAN ONLY",
+  "purpose": "Credit officer opens the case.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/open"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "recordHumanDecision",
+  "permission": "HUMAN ONLY",
+  "purpose": "Credit officer / sanction authority records a decision. NEVER give this to an agent.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/decision"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "activateLoan",
+  "permission": "HUMAN ONLY",
+  "purpose": "Loan operations books and disburses an approved loan.",
+  "method": "POST",
+  "path": "/api/v1/applications/{application_id}/activate"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "updateRiskAlert",
+  "permission": "HUMAN ONLY",
+  "purpose": "RM / credit resolves or escalates an alert.",
+  "method": "PATCH",
+  "path": "/api/v1/alerts/{alert_id}"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "updateRMLead",
+  "permission": "HUMAN ONLY",
+  "purpose": "RM records the lead outcome.",
+  "method": "PATCH",
+  "path": "/api/v1/leads/{lead_id}"
+ },
+ {
+  "agent": "Human only (web console / bank systems)",
+  "tool": "updateRMTask",
+  "permission": "HUMAN ONLY",
+  "purpose": "RM records the task outcome.",
+  "method": "PATCH",
+  "path": "/api/v1/rm-tasks/{task_id}"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "listEvents",
+  "permission": "READ",
+  "purpose": "Event log; poll with since_id if webhooks are not used.",
+  "method": "GET",
+  "path": "/api/v1/events"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "getAuditTrail",
+  "permission": "ADMIN",
+  "purpose": "Every API call with actor, tool and HTTP result.",
+  "method": "GET",
+  "path": "/api/v1/audit"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "createWebhookSubscription",
+  "permission": "ADMIN",
+  "purpose": "Push events to a URL, e.g. an AgenticOrg workflow webhook trigger.",
+  "method": "POST",
+  "path": "/api/v1/webhooks"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "listWebhookSubscriptions",
+  "permission": "ADMIN",
+  "purpose": "List subscriptions and recent deliveries.",
+  "method": "GET",
+  "path": "/api/v1/webhooks"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "deleteWebhookSubscription",
+  "permission": "ADMIN",
+  "purpose": "Deactivate a subscription.",
+  "method": "DELETE",
+  "path": "/api/v1/webhooks/{subscription_id}"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "resetDemoData",
+  "permission": "ADMIN",
+  "purpose": "Wipe and re-seed all synthetic data.",
+  "method": "POST",
+  "path": "/api/v1/admin/reset"
+ },
+ {
+  "agent": "Admin & integration (not for agents)",
+  "tool": "applyDemoStress",
+  "permission": "ADMIN",
+  "purpose": "Demo: make a customer deteriorate before a live demo.",
+  "method": "POST",
+  "path": "/api/v1/admin/customers/{customer_id}/apply-stress"
+ }
+]

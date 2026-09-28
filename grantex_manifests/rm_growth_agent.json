@@ -1,0 +1,132 @@
+{
+  "manifest_version": "1.0",
+  "connector": "landbank_msme_demo_data",
+  "agent": "RM & Growth Agent",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key",
+    "value_ref": "secret://landbank/lbk_agent_growth"
+  },
+  "tools": [
+    {
+      "name": "getCustomer",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}",
+      "permission": "read",
+      "description": "Profile, KYC status, vintage, RM."
+    },
+    {
+      "name": "getCustomer360",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/360",
+      "permission": "read",
+      "description": "Everything about a customer in one call (loans, health, signals, open work)."
+    },
+    {
+      "name": "getProductHoldings",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/products",
+      "permission": "read",
+      "description": "Products the customer already holds."
+    },
+    {
+      "name": "getEarlyWarningSignals",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/signals",
+      "permission": "read",
+      "description": "Current metrics and fired signals for one customer (nothing stored)."
+    },
+    {
+      "name": "listRiskAlerts",
+      "method": "GET",
+      "path": "/api/v1/alerts",
+      "permission": "read",
+      "description": "List alerts."
+    },
+    {
+      "name": "getRiskAlert",
+      "method": "GET",
+      "path": "/api/v1/alerts/{alert_id}",
+      "permission": "read",
+      "description": "One alert."
+    },
+    {
+      "name": "getProductOpportunities",
+      "method": "GET",
+      "path": "/api/v1/customers/{customer_id}/opportunities",
+      "permission": "write",
+      "description": "Next-best products for one healthy customer, with reasons (stores the opportunity)."
+    },
+    {
+      "name": "listOpportunities",
+      "method": "GET",
+      "path": "/api/v1/opportunities",
+      "permission": "write",
+      "description": "Best opportunity per customer across the book (stores opportunities)."
+    },
+    {
+      "name": "createRMLead",
+      "method": "POST",
+      "path": "/api/v1/leads",
+      "permission": "write",
+      "description": "Create a lead in the RM work queue (blocked for credit offers to HIGH_ATTENTION customers)."
+    },
+    {
+      "name": "listRMLeads",
+      "method": "GET",
+      "path": "/api/v1/leads",
+      "permission": "read",
+      "description": "List leads."
+    },
+    {
+      "name": "createRMTask",
+      "method": "POST",
+      "path": "/api/v1/rm-tasks",
+      "permission": "write",
+      "description": "Create a task for the customer's RM (risk outreach, document follow-up, growth)."
+    },
+    {
+      "name": "listRMTasks",
+      "method": "GET",
+      "path": "/api/v1/rm-tasks",
+      "permission": "read",
+      "description": "List RM tasks."
+    },
+    {
+      "name": "getRMWorkQueue",
+      "method": "GET",
+      "path": "/api/v1/rm/work-queue",
+      "permission": "read",
+      "description": "Open tasks and leads for an RM."
+    },
+    {
+      "name": "getReferenceData",
+      "method": "GET",
+      "path": "/api/v1/reference/{kind}",
+      "permission": "read",
+      "description": "Products, early-warning rules, document checklist, RMs, event types."
+    }
+  ],
+  "denied_tools": [
+    "activateLoan",
+    "applyDemoStress",
+    "createWebhookSubscription",
+    "declineConsent",
+    "deleteWebhookSubscription",
+    "getAuditTrail",
+    "grantConsent",
+    "listWebhookSubscriptions",
+    "openCreditCase",
+    "recordHumanDecision",
+    "resetDemoData",
+    "submitApplication",
+    "updateRMLead",
+    "updateRMTask",
+    "updateRiskAlert",
+    "uploadDocument"
+  ],
+  "human_approval_required_for": [
+    "recordHumanDecision",
+    "activateLoan"
+  ]
+}
